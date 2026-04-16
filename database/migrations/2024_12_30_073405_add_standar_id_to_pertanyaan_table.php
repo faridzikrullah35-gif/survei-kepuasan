@@ -1,0 +1,33 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('pertanyaan', function (Blueprint $table) {
+            // Tambahkan kolom standar_id
+            $table->foreignId('standar_id')
+                  ->constrained('standar')
+                  ->onDelete('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('pertanyaan', function (Blueprint $table) {
+            // Hapus kolom dan constraint standar_id
+            $table->dropForeign(['standar_id']);
+            $table->dropColumn('standar_id');
+        });
+    }
+};

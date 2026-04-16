@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateTahunAkademikTeksTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('tahun_akademik_teks', function (Blueprint $table) {
+            $table->id(); // Kolom ID otomatis
+            $table->string('tahun'); 
+            $table->string('semester'); 
+            $table->enum('status', ['Aktif', 'Non-Aktif'])->default('Non-Aktif');
+            $table->timestamps(); 
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('tahun_akademik_teks');
+    }
+}

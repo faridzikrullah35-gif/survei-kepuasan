@@ -1,77 +1,105 @@
+<!-- resources/views/app.blade.php -->
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
-        name="viewport">
-    <title>@yield('title') &mdash; simpadu-c030322999</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <title>@yield('title') &mdash; Survei Kepuasan</title>
+    <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/png">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- General CSS Files -->
-    <link rel="stylesheet"
-        href="{{ asset('library/bootstrap/dist/css/bootstrap.min.css') }}">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    
+    <!-- Vite (Tailwind CSS) -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @stack('style')
-
-    <!-- Template CSS -->
-    <link rel="stylesheet"
-        href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet"
-        href="{{ asset('css/components.css') }}">
-
-    <!-- Start GA -->
-    <script async
-        src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'UA-94034622-3');
-    </script>
-    <!-- END GA -->
-</head>
 </head>
 
-<body>
-    <div id="app">
-        <div class="main-wrapper">
-            <!-- Header -->
-            @include('components.header')
-
+<body class="bg-gray-100">
+    <div id="app" class="flex h-screen overflow-hidden">
+        
+        <!-- WRAPPER untuk Sidebar dan Konten -->
+        <div id="main-layout" class="flex flex-1 overflow-hidden sidebar-visible">
+            
             <!-- Sidebar -->
-            @include('components.sidebar')
+            @auth
+                @if(auth()->user()->role === 'admin')
+                    @include('components.sidebar')
+                @endif
+            @endauth
 
-            <!-- Content -->
-            @yield('main')
+            <!-- Wrapper untuk Header, Konten, dan Footer -->
+            <div class="flex flex-col flex-1 overflow-hidden">
+                <!-- Header (yang sekarang berisi tombol) -->
+                @include('components.header')
 
-            <!-- Footer -->
-            @include('components.footer')
+                <!-- Konten Utama -->
+                <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-4 lg:p-6">
+                    @yield('main')
+                </main>
+
+                <!-- Footer -->
+                @include('components.footer')
+            </div>
         </div>
     </div>
 
-    <!-- General JS Scripts -->
-    <script src="{{ asset('library/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('library/popper.js/dist/umd/popper.js') }}"></script>
-    <script src="{{ asset('library/tooltip.js/dist/umd/tooltip.js') }}"></script>
-    <script src="{{ asset('library/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('library/jquery.nicescroll/dist/jquery.nicescroll.min.js') }}"></script>
-    <script src="{{ asset('library/moment/min/moment.min.js') }}"></script>
-    <script src="{{ asset('js/stisla.js') }}"></script>
+    <script src="{{ asset('library/jquery/dist/jquery.min.js') }}"></script>    
 
+    <!-- Script untuk Toggle Sidebar -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('sidebar-wrapper');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const mainLayout = document.getElementById('main-layout');
+
+        // Fungsi untuk mengecek ukuran layar
+        function isMobile() {
+            return window.innerWidth < 1024; // lg: breakpoint
+        }
+
+        function toggleSidebar() {
+            if (isMobile()) {
+                // --- LOGIKA MOBILE ---
+                // Hanya toggle class translate dan overlay
+                sidebar.classList.toggle('-translate-x-full');
+                sidebar.classList.toggle('translate-x-0');
+                sidebarOverlay.classList.toggle('hidden');
+            } else {
+                // --- LOGIKA DESKTOP ---
+                // Hanya toggle class di main-layout untuk mengatur lebar
+                mainLayout.classList.toggle('sidebar-visible');
+                mainLayout.classList.toggle('sidebar-hidden');
+            }
+
+            // Animasi ikon berlaku untuk keduanya
+            if (hamburgerIcon) {
+                hamburgerIcon.classList.toggle('rotate-90');
+            }
+        }
+
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', toggleSidebar);
+        }
+
+        if (sidebarOverlay) {
+            // Overlay hanya ada di mobile, jadi kita gunakan logika mobile
+            sidebarOverlay.addEventListener('click', () => {
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
+                sidebarOverlay.classList.add('hidden');
+                if (hamburgerIcon) {
+                    hamburgerIcon.classList.remove('rotate-90');
+                }
+            });
+        }
+    });
+</script>
     @stack('scripts')
-
-    <!-- Template JS File -->
-    <script src="{{ asset('js/scripts.js') }}"></script>
-    <script src="{{ asset('js/custom.js') }}"></script>
+    
 </body>
-
 </html>
