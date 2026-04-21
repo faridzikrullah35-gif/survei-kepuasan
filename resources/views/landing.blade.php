@@ -1,568 +1,334 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
-  <head>
-    <meta charset="utf-8" />
+<html lang="en">
 
-    <!--====== Title ======-->
-    <title>Survei Kepuasan</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LPM - Universitas Muhammadiyah Banjarmasin</title>
+    <meta name="description" content="Lembaga Penjaminan Mutu UM Banjarmasin">
+    
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
 
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        .work-sans { font-family: 'Work Sans', sans-serif; }
+        #menu-toggle:checked ~ #menu {
+        display: block;
+            }
+        .hover\:grow { transition: all 0.3s; transform: scale(1); }
+        .hover\:grow:hover { transform: scale(1.02); }
+        .carousel-open:checked + .carousel-item { position: static; opacity: 100; }
+        .carousel-item { -webkit-transition: opacity 0.6s ease-out; transition: opacity 0.6s ease-out; }
+        #carousel-1:checked ~ .control-1, #carousel-2:checked ~ .control-2 { display: block; }
+        .carousel-indicators { list-style: none; margin: 0; padding: 0; position: absolute; bottom: 2%; left: 0; right: 0; text-align: center; z-index: 10; }
+        #carousel-1:checked ~ .control-1 ~ .carousel-indicators li:nth-child(1) .carousel-bullet,
+        #carousel-2:checked ~ .control-2 ~ .carousel-indicators li:nth-child(2) .carousel-bullet { color: #000; }
+        html {
+            scroll-behavior: smooth;
+        }
+        section {
+            scroll-margin-top: 100px;
+        }
+    </style>
+</head>
 
-    <!--====== Favicon Icon ======-->
-    <link
-      rel="shortcut icon"
-      href="assets/images/favicon.png"
-      type="image/png"
-    />
+<body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
 
-    <!--====== CSS Files LinkUp ======-->
-    <link rel="stylesheet" href="assets/css/animate.css" />
-    <link rel="stylesheet" href="assets/css/glightbox.min.css" />
-    <link rel="stylesheet" href="assets/css/lineIcons.css" />
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/css/style.css" />
+    <nav class="w-full border-b bg-white shadow-sm sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center px-6 py-5">
 
-    <!--====== CSS Files LinkUp ======-->
-    <link rel="stylesheet" href="{{ asset('assets/fonts/LineIcons.svg') }}">
+        <!-- LOGO -->
+        <img src="assets/images/logo/logo (1).png" class="h-14">
 
-  </head>
+        <!-- MENU DESKTOP -->
+        <ul class="hidden md:flex space-x-8 text-lg font-medium">
+            <li><a href="/" class="hover:text-black">Beranda</a></li>
+            <li><a href="#survei" class="hover:text-black">Survei Kepuasan</a></li>
+            <li><a href="#visi-misi-tujuan" class="hover:text-black">Visi, Misi & Tujuan</a></li>
+        </ul>
 
-  <body>
-    <!--====== PRELOADER PART START ======-->
-    <div class="preloader">
-      <div class="loader">
-        <div class="spinner">
-          <div class="spinner-container">
-            <div class="spinner-rotator">
-              <div class="spinner-left">
-                <div class="spinner-circle"></div>
-              </div>
-              <div class="spinner-right">
-                <div class="spinner-circle"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--====== PRELOADER PART ENDS ======-->
+        <!-- RIGHT SIDE -->
+        <div class="flex items-center space-x-4">
 
-<!--====== HEADER PART START ======-->
-<header class="header-area">
-  <div class="navbar-area">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="https://lpm.umbjm.ac.id/">
-              <img src="assets/images/logo/logo (1).png" alt="Logo (1)" class="img-fluid" style="max-width: 180px; height: auto;" />
+            <!-- LOGIN DESKTOP -->
+            <a href="{{ url('/login') }}"
+            class="hidden md:block border border-gray-800 px-6 py-2 rounded-lg text-sm font-semibold hover:bg-gray-800 hover:text-white transition">
+            Login
             </a>
 
-            <!-- === PERUBAAN DIMULAI DI SINI === -->
-            <!-- Wrapper untuk Toggler dan Tombol Login Mobile -->
-            <div class="d-lg-none ms-auto d-flex align-items-center">
-                <!-- Tombol Login untuk Mobile (di luar dropdown) -->
-                <a class="main-btn me-2" href="{{ url('/login') }}" style="padding: 8px 15px; font-size: 0.9rem;">
-                    <i class="lni lni-user"></i> Login
-                </a>
+            <!-- LOGIN MOBILE -->
+            <a href="{{ url('/login') }}"
+            class="block md:hidden border border-gray-800 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-gray-800 hover:text-white transition">
+            Login
+            </a>
 
-                <!-- Tombol Hamburger -->
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span class="toggler-icon"> </span>
-                    <span class="toggler-icon"> </span>
-                    <span class="toggler-icon"> </span>
-                </button>
-            </div>
-            <!-- === PERUBAAN BERAKHIR DI SINI -->
+            <!-- HAMBURGER -->
+            <button id="menu-btn" class="md:hidden text-2xl">
+                ☰
+            </button>
 
-            <div
-              class="collapse navbar-collapse sub-menu-bar"
-              id="navbarSupportedContent"
-            >
-              <ul id="nav" class="navbar-nav ms-auto">
-                <li class="nav-item">
-                  <a class="page-scroll active" href="#home">Tampilan Utama</a>
-                </li>
-                <li class="nav-item">
-                  <a class="page-scroll" href="#about">Tentang</a>
-                </li>
-                
-                <!-- Tombol Login untuk Desktop (di dalam navbar-collapse) -->
-                <li class="nav-item d-none d-lg-block">
-                  <a class="main-btn btn-sm px-5" href="{{ url('/login') }}">Login</a>
-                </li>
-              </ul>
-            </div>
-            <!-- navbar collapse -->
-
-              </nav>
-              <!-- navbar -->
-            </div>
-          </div>
-          <!-- row -->
         </div>
-        <!-- container -->
-      </div>
-      <!-- navbar area -->
 
-      <div
-        id="home"
-        class="header-hero bg_cover"
-        style="background-image: url(assets/images/header/banner-bg.svg)"
-      >
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-8 col-md-10">
-              <div class="header-hero-content text-center">
-                <h2
-                  class="header-title wow fadeInUp"
-                  data-wow-duration="1.3s"
-                  data-wow-delay="0.5s"
-                >
-                  Lembaga Penjaminan Mutu - LPM
-                </h2>
-                <p
-                  class="text wow fadeInUp"
-                  data-wow-duration="1.3s"
-                  data-wow-delay="0.8s"
-                >
-                Selamat datang di survei kepuasan LPM, 
-                masukan Anda sangat penting bagi kami untuk meningkatkan kualitas layanan yang kami berikan.
-                </p>
-              </div>
-              <!-- header hero content -->
-            </div>
-          </div>
-          <!-- row -->
-          <div class="row">
-            <div class="col-lg-12">
-              <div
-                class="header-hero-image text-center wow fadeIn"
-                data-wow-duration="1.3s"
-                data-wow-delay="1.4s"
-              >
-                <img src="assets/images/header/header-hero.png" alt="hero" class="img-fluid" style="max-height: 400px; object-fit: contain;"/>
-              </div>
-              <!-- header hero image -->
-            </div>
-          </div>
-          <!-- row -->
-        </div>
-        <!-- container -->
-        <div id="particles-1" class="particles"></div>
-      </div>
-      <!-- header hero -->
-    </header>
-    <!--====== HEADER PART ENDS ======-->
-
-    <!--====== BRAND PART START ======-->
-    <div class="brand-area pt-90">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div
-              class="
-                brand-logo
-                d-flex
-                align-items-center
-                justify-content-center justify-content-md-between
-              "
-            >
-              <div
-                class="single-logo mt-30 wow fadeIn"
-                data-wow-duration="1s"
-                data-wow-delay="0.2s"
-              >
-                <!-- <img src="#" alt="brand" /> -->
-              </div>
-
-              <!-- single logo -->
-            </div>
-            <!-- brand logo -->
-          </div>
-        </div>
-        <!-- row -->
-      </div>
-      <!-- container -->
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+        <ul class="flex flex-col space-y-3 text-base">
+            <li><a href="/" class="hover:text-black">Beranda</a></li>
+            <li><a href="#survei" class="hover:text-black">Survei Kepuasan</a></li>
+            <li><a href="#visi-misi-tujuan" class="hover:text-black">Visi, Misi & Tujuan</a></li>
+        </ul>
     </div>
-    <!--====== BRAND PART ENDS ======-->
+</nav>
 
-    <!--====== SERVICES PART START ======-->
-    <section id="features" class="services-area pt-120">
-      
-    <section id="about">
-      <!--====== ABOUT PART START ======-->
-      <div class="about-area pt-70">
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-lg-6">
-              <div
-                class="about-content mt-50 wow fadeInLeftBig"
-                data-wow-duration="1s"
-                data-wow-delay="0.5s"
-              >
-                <div class="section-title">
-                  <div class="line"></div>
-                  <h3 class="title">
-                    Visi Misi dan Tujuan Universitas Muhammadiyah Banjarmasin
-                  </h3>
+<!-- MAPS -->
+<section class="bg-white py-12">
+    <div class="container mx-auto px-6">
+
+        <h2 class="text-2xl font-bold text-gray-900 mb-6 border-b-2 border-blue-500 inline-block">
+            Lokasi Kampus
+        </h2>
+
+        <div class="w-full h-[400px] rounded-lg overflow-hidden shadow">
+            <iframe 
+                src="https://www.google.com/maps?q=-3.2484752,114.6287748&z=17&output=embed"
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+
+    </div>
+</section>
+
+<div id="beranda" class="carousel relative w-full overflow-hidden">
+
+<!-- SURVEI -->
+<section id="survei" class="bg-white py-16 border-b">
+    <div class="container mx-auto px-6 text-center max-w-4xl">
+
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            Survei Kepuasan Lembaga Penjaminan Mutu - LPM
+        </h1>
+
+        <p class="text-lg text-gray-600 leading-relaxed">
+            Website ini digunakan sebagai sarana untuk mengukur tingkat kepuasan sivitas akademika 
+            terhadap layanan yang diberikan oleh Lembaga Penjaminan Mutu Universitas Muhammadiyah Banjarmasin. 
+            Melalui survei ini, diharapkan diperoleh masukan yang objektif guna meningkatkan kualitas layanan 
+            akademik maupun non-akademik secara berkelanjutan.
+        </p>
+
+    </div>
+</section>
+
+    <div class="carousel relative w-full overflow-hidden">
+
+        <div id="slides" class="flex transition-transform duration-700 ease-in-out">
+
+            <!-- SLIDE 1 -->
+            <div class="min-w-full flex items-center justify-center bg-no-repeat bg-center bg-contain bg-gray-100"
+                style="height:600px; background-image:url('https://lpm.umbjm.ac.id/img/Informasi/1770638083.jpeg');">
+            </div>
+
+            <!-- SLIDE 2 -->
+            <div class="min-w-full flex items-center justify-center bg-no-repeat bg-center bg-contain bg-gray-100"
+                style="height:600px; background-image:url('https://lpm.umbjm.ac.id/img/Informasi/1771587363.jpeg');">
+            </div>
+
+            <!-- SLIDE 3 -->
+            <div class="min-w-full flex items-center justify-center bg-no-repeat bg-center bg-contain bg-gray-100"
+                style="height:600px; background-image:url('https://lpm.umbjm.ac.id/img/Informasi/1770638122.jpeg');">
+            </div>
+
+        </div>
+
+        <!-- BUTTON -->
+        <button id="prevBtn"
+            class="absolute left-4 top-1/2 -translate-y-1/2 bg-white px-4 py-2 rounded-full shadow">
+            ‹
+        </button>
+
+        <button id="nextBtn"
+            class="absolute right-4 top-1/2 -translate-y-1/2 bg-white px-4 py-2 rounded-full shadow">
+            ›
+        </button>
+
+    </div>
+
+    <!-- VISI MISI -->
+    <section id="visi-misi-tujuan" class="bg-gray-50 py-12">
+        <div class="container py-8 px-6 mx-auto">
+            <h2 class="uppercase tracking-wide font-bold text-gray-800 text-2xl mb-8 border-b-2 border-blue-500 inline-block">
+                Visi, Misi & Tujuan
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="font-bold text-xl text-black-900 mb-4 px-4 py-2 border border-blue-500 inline-block rounded">
+                        Visi
+                    </h3>
+                    <p class="text-gray-700 italic leading-relaxed border-l-4 border-blue-500 pl-4 mt-2">
+                        "Menjadi <span class="font-semibold">center of excellence</span> dalam pengembangan dan implementasi Sistem Penjaminan Mutu Internal (SPMI) untuk menjamin peningkatan kualitas (SPME) output UM Banjarmasin yang terkemuka, unggul, professional, dan berkarakter Islam yang berkemajuan".
+                    </p>
                 </div>
-                <!-- section title -->
-                <p class="text">
-                  <div class="fancy-title title-double-border title-center">
-                    <br>
-                      <h4>Visi:</h4>
-                      <p>
-                      Menjadi universitas terkemuka, unggul, profesional, berkarakter Islam yang berkemajuan tahun 2026.
-                      </p>
-                    </br>
-                  </div>
 
-                  <!-- Misi Section -->
-                  <div class="fancy-title title-double-border title-center">
-                    <br>
-                      <h4>Misi:</h4>
-                        <ul style="list-style: none; padding-left: 0;">
-                          <li>
-                              <div style="display: flex; align-items: flex-start;">
-                                  <span style="font-weight: bold; color: #555; margin-right: 10px; flex-shrink: 0;">•</span>
-                                  <span>Menyelenggarakan Pendidikan Akademik, Vokasi, dan Profesi untuk pengembangan ilmu, profesionalisme, dan pembentukan peserta didik berkarakter Islam yang berkemajuan.</span>
-                              </div>
-                              <hr style="border: none; border-top: 1px dashed #ccc; margin: 10px 0;">
-                          </li>
-                          <li>
-                              <div style="display: flex; align-items: flex-start;">
-                                  <span style="font-weight: bold; color: #555; margin-right: 10px; flex-shrink: 0;">•</span>
-                                  <span>Menyelenggarakan Penelitian dasar dan terapan, produk yang inovatif, berkualitas untuk menunjang kemandirian bangsa.</span>
-                              </div>
-                              <hr style="border: none; border-top: 1px dashed #ccc; margin: 10px 0;">
-                          </li>
-                          <li>
-                              <div style="display: flex; align-items: flex-start;">
-                                  <span style="font-weight: bold; color: #555; margin-right: 10px; flex-shrink: 0;">•</span>
-                                  <span>Mengabdikan keahlian dalam bidang ilmu pengetahuan, teknologi, dan seni untuk kepentingan masyarakat, kerja sama yang produktif dan berkelanjutan dengan kelembagaan Pendidikan, pemerintahan, dan dunia usaha di tingkat daerah, nasional, dan internasional.</span>
-                              </div>
-                              <hr style="border: none; border-top: 1px dashed #ccc; margin: 10px 0;">
-                          </li>
-                          <li>
-                              <div style="display: flex; align-items: flex-start;">
-                                  <span style="font-weight: bold; color: #555; margin-right: 10px; flex-shrink: 0;">•</span>
-                                  <span>Mengembangkan organisasi dalam meningkatkan kualitas tata kelola yang baik (good university governance), menuju tata kelola yang unggul (excellent university governance), secara efektif dan efisien dalam suasana akademik yang islami dan bermartabat.</span>
-                              </div>
-                              <hr style="border: none; border-top: 1px dashed #ccc; margin: 10px 0;">
-                          </li>
-                        </ul>
-                      </br>
+                <div>
+                    <h3 class="font-bold text-xl text-black-900 mb-4 px-4 py-2 border border-blue-500 inline-block rounded">
+                        Misi
+                    </h3>
+                    <ul class="list-none space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <span class="font-bold mr-2 text-black-600">A.</span>
+                            <span>Mengembangkan sistem manajemen dan budaya mutu untuk mewujudkan <span class="italic">good university governance</span>.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="font-bold mr-2 text-black-600">B.</span>
+                            <span>Mengembangkan penjaminan mutu akademik berbasis sistem informasi untuk peningkatan daya saing nasional menuju internasional.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="font-bold mr-2 text-black-600">C.</span>
+                            <span>Meningkatkan reputasi UM Banjarmasin di tingkat regional, nasional dan internasional.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-2">
+                    <h3 class="font-bold text-xl text-black-900 mb-4 px-4 py-2 border border-blue-500 inline-block rounded">
+                        Tujuan
+                    </h3>
+                    
+                    <div class="mb-8 p-6 bg-blue-50 rounded-lg border-l-4 border-blue-500 text-gray-700">
+                        <p class="font-bold mb-2">Kebijakan Sistem Penjaminan Mutu Internal (SPMI) UM Banjarmasin:</p>
+                        <p class="text-sm leading-relaxed">
+                            Komitmen penerapan SPMI yang efektif dengan mengacu pada standar mutu berbasis risiko untuk peningkatan daya saing regional dan nasional menuju internasional untuk menciptakan budaya dan peningkatan mutu berkelanjutan melalui siklus <span class="font-bold">PPEPP</span> (Penetapan, Pelaksanaan, Evaluasi, Pengendalian, Peningkatan).
+                        </p>
                     </div>
 
-                    <!-- Tujuan Section -->
-                  <div class="fancy-title title-double-border title-center">
-                    <br>
-                      <h4>Tujuan:</h4>
-                  
-                  <ul style="list-style: none; padding-left: 0;">
-                      <li>
-                          <div style="display: flex; align-items: flex-start;">
-                              <span style="font-weight: bold; color: #555; margin-right: 10px; flex-shrink: 0;">•</span>
-                              <span>Menghasilkan lulusan yang berdaya saing global, profesional, mempunyai spirit unggul, dan berkarakter Islam yang berkemajuan.</span>
-                          </div>
-                          <hr style="border: none; border-top: 1px dashed #ccc; margin: 10px 0;">
-                      </li>
-                      <li>
-                          <div style="display: flex; align-items: flex-start;">
-                              <span style="font-weight: bold; color: #555; margin-right: 10px; flex-shrink: 0;">•</span>
-                              <span>Mewujudkan pengembangan dan pemanfaatan iptek dan seni yang relevan dengan tujuan pembangunan nasional dan daerah melalui penyelenggaraan program studi.</span>
-                          </div>
-                          <hr style="border: none; border-top: 1px dashed #ccc; margin: 10px 0;">
-                      </li>
-                      <li>
-                          <div style="display: flex; align-items: flex-start;">
-                              <span style="font-weight: bold; color: #555; margin-right: 10px; flex-shrink: 0;">•</span>
-                              <span>Penelitian, pembinaan kelembagaan, serta pengembangan sumber daya akademik yang berdaya guna dan berhasil guna.</span>
-                          </div>
-                      </li>
-                    </br>
-                  </ul>
-                  </div>
-                  </p>
-              </div>              
-            <!-- about content -->
-            </div>
-            <div class="col-lg-6">
-              <div
-                class="about-image text-center mt-50 wow fadeInRightBig"
-                data-wow-duration="1s"
-                data-wow-delay="0.5s"
-              >
-                <!-- RESPONSIVE: Buat gambar lebih fleksibel -->
-                <img src="assets/images/about/about1.png" alt="about" class="img-fluid" style="max-height: 350px; object-fit: contain;"/>
-              </div>
-              <!-- about image -->
-            </div>
-          </div>
-          <!-- row -->
-        </div>
-        <!-- container -->
-        <div class="about-shape-1 d-none d-lg-block">
-          <img src="assets/images/about/about-shape-1.svg" alt="shape" />
-        </div>
-      </div>
-      <!--====== ABOUT PART ENDS ======-->
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-white p-4 rounded-lg shadow-sm border-t-4 border-blue-400 flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Tujuan 1</span>
+                                <p class="text-gray-700 mt-2 text-sm">Terwujudnya <span class="italic font-medium">good university governance</span> dan budaya mutu melalui implementasi sistem manajemen mutu di tingkat universitas, UPPS dan PS, serta Lembaga, biro dan unit lainnya.</p>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-gray-100 italic text-xs text-gray-500">
+                                <span class="font-bold block text-gray-600 mb-1">Sasaran:</span>
+                                SS-LPM-01, SS-LPM-02
+                            </div>
+                        </div>
 
-      <!--====== ABOUT PART START ======-->
-      <div class="about-area pt-70">
-        <div class="about-shape-2 d-none d-lg-block">
-          <img src="assets/images/about/about-shape-2.svg" alt="shape" />
-        </div>
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-lg-6 order-lg-last">
-              <div
-                class="about-content ms-lg-auto mt-50 wow fadeInLeftBig"
-                data-wow-duration="1s"
-                data-wow-delay="0.5s"
-              >
-                <div class="section-title">
-                  <div class="line"></div>
-                  <h3 class="title">
-                    Visi Misi dan Tujuan Lembaga Penjaminan Mutu Universitas Muhammadiyah Banjarmasin
-                  </h3>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border-t-4 border-blue-400 flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Tujuan 2</span>
+                                <p class="text-gray-700 mt-2 text-sm">Tersedianya sistem informasi penjaminan mutu akademik untuk pencapaian akreditasi unggul dan akreditasi internasional.</p>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-gray-100 italic text-xs text-gray-500">
+                                <span class="font-bold block text-gray-600 mb-1">Sasaran:</span>
+                                SS-LPM-03, SS-LPM-04
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg shadow-sm border-t-4 border-blue-400 flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Peningkatan Reputasi & Akuntabilitas</span>
+                                <p class="text-gray-700 mt-2 text-sm italic">Fokus pada peningkatan reputasi nasional/internasional, mutu non-akademik, serta akuntabilitas keuangan perguruan tinggi.</p>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-gray-100 italic text-xs text-gray-500">
+                                <span class="font-bold block text-gray-600 mb-1">Sasaran:</span>
+                                SS-LPM-05, SS-LPM-06, SS-LPM-07
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- section title -->
-                <p class="text">
-                  <div class="fancy-title title-double-border title-center">
-                    <br>
-                      <h4>Visi:</h4>
-                      <p>
-                          Menjamin peningkatan kualitas output Universitas Muhammadiyah Banjarmasin yang Professional, Unggul, dan Islami.
-                      </p>
-                    </br>
-                  </div>
-
-                  <!-- Misi Section -->
-                  <div class="fancy-title title-double-border title-center">
-                    <br>
-                      <h4>Misi:</h4>
-                  <ul style="list-style: none; padding-left: 0;">
-                      <li>
-                          <div style="display: flex; align-items: flex-start;">
-                              <span style="font-weight: bold; color: #555; margin-right: 10px; flex-shrink: 0;">•</span>
-                              <span>Menyelenggarakan penjaminan mutu internal (SPMI-PT) dengan Standar Nasional Pendidikan yang dikembangkan.</span>
-                          </div>
-                          <hr style="border: none; border-top: 1px dashed #ccc; margin: 10px 0;">
-                      </li>
-                      <li>
-                          <div style="display: flex; align-items: flex-start;">
-                              <span style="font-weight: bold; color: #555; margin-right: 10px; flex-shrink: 0;">•</span>
-                              <span>Menjamin peningkatan kualitas Institusi/ Fakultas/ Prodi melalui ketercapaian Akreditasi dengan prinsip perbaikan berkelanjutan.</span>
-                          </div>
-                          <hr style="border: none; border-top: 1px dashed #ccc; margin: 10px 0;">
-                      </li>
-                      <li>
-                          <div style="display: flex; align-items: flex-start;">
-                              <span style="font-weight: bold; color: #555; margin-right: 10px; flex-shrink: 0;">•</span>
-                              <span>Menyelenggarakan fungsi kelembagaan Penjaminan Mutu.</span>
-                          </div>
-                      </li>
-                  </ul>
-                  </br>
-                  </div>
-
-                  <!-- Tujuan Section -->
-                  <div class="fancy-title title-double-border title-center">
-                    <br>
-                      <h4>Tujuan:</h4>
-                  
-                  <ul style="list-style: none; padding-left: 0;">
-                      <li>
-                          <div style="display: flex; align-items: flex-start;">
-                              <span style="font-weight: bold; color: #555; margin-right: 10px; flex-shrink: 0;">•</span>
-                              <span>Menjadikan LPM UM BANJARMASIN sebagai sumber informasi evaluasi mutu terhadap pelaksanaan layanan pendidikan (akademik).</span>
-                          </div>
-                          <hr style="border: none; border-top: 1px dashed #ccc; margin: 10px 0;">
-                      </li>
-                      <li>
-                          <div style="display: flex; align-items: flex-start;">
-                              <span style="font-weight: bold; color: #555; margin-right: 10px; flex-shrink: 0;">•</span>
-                              <span>Menjadikan LPM UM BANJARMASIN sebagai sumber informasi evaluasi mutu terhadap pelaksanaan layanan non akademik.</span>
-                          </div>
-                          <hr style="border: none; border-top: 1px dashed #ccc; margin: 10px 0;">
-                      </li>
-                      <li>
-                          <div style="display: flex; align-items: flex-start;">
-                              <span style="font-weight: bold; color: #555; margin-right: 10px; flex-shrink: 0;">•</span>
-                              <span>Menjadikan LPM UM BANJARMASIN sebagai pusat data pengembangan mutu program studi melalui akreditasi.</span>
-                          </div>
-                      </li>
-                    </br>
-                  </ul>
-                  </div>
-                </p>
-              </div>
-              <!-- about content -->
             </div>
-            <div class="col-lg-6 order-lg-first">
-              <div
-                class="about-image text-center mt-50 wow fadeInRightBig"
-                data-wow-duration="1s"
-                data-wow-delay="0.5s"
-              >
-                <!-- RESPONSIVE: Buat gambar lebih fleksibel -->
-                <img src="assets/images/about/about2.png" alt="about" class="img-fluid" style="max-height: 350px; object-fit: contain;"/>
-              </div>
-              <!-- about image -->
-            </div>
-          </div>
-          <!-- row -->
         </div>
-        <!-- container -->
-      </div>
-      <!--====== ABOUT PART ENDS ======-->
-
-      <!--====== ABOUT PART START ======-->
-      <div class="about-area pt-70">
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-lg-6">
-              <div
-                class="about-content mt-50 wow fadeInLeftBig"
-                data-wow-duration="1s"
-                data-wow-delay="0.5s"
-              >
-                <div class="section-title">
-                  <div class="line"></div>
-                  <h3 class="title">
-                  Bidang Pusat Data dan Informasi
-                  </h3>
-                </div>
-                <!-- section title -->
-                <p class="text">
-                Mengembangkan dan mengelola sistem informasi yang meningkatkan efisiensi dan efektivitas 
-                pelaksananaan sistem penjaminan mutu baik SPMI maupun SPME.
-                </p>
-              </div>
-              <!-- about content -->
-            </div>
-            <div class="col-lg-6">
-              <div
-                class="about-image text-center mt-50 wow fadeInRightBig"
-                data-wow-duration="1s"
-                data-wow-delay="0.5s"
-              >
-                <!-- RESPONSIVE: Buat gambar lebih fleksibel -->
-                <img src="assets/images/about/about3.png" alt="about" class="img-fluid" style="max-height: 350px; object-fit: contain;"/>
-              </div>
-              <!-- about image -->
-            </div>
-          </div>
-          <!-- row -->
-        </div>
-        <!-- container -->
-        <div class="about-shape-1 d-none d-lg-block">
-          <img src="assets/images/about/about-shape-1.svg" alt="shape" />
-        </div>
-      </div>
-      <!--====== ABOUT PART ENDS ======-->
     </section>
 
-    <!--====== FOOTER PART START ======-->
-    <footer id="footer" class="footer-area pt-120">
-        <!-- row -->
-        </div>
-        <!-- subscribe area -->
-        <div class="footer-widget pb-100">
-          <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-8">
-              <div
-                class="footer-about mt-50 wow fadeIn"
-                data-wow-duration="1s"
-                data-wow-delay="0.2s"
-              >
-                <!-- RESPONSIVE: Batasi lebar logo di footer -->
-                <a class="logo" href="javascript:void(0)">
-                  <img src="assets/images/logo/logo (1).png" alt="logo" style="max-width: 150px; height: auto;"/>
-                </a>
-                <ul class="social">
-                  <li>
-                    <a target="_blank" href="https://twitter.com/Kerry14066781">
-                      <i class="lni lni-twitter-filled"> </i>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      target="_blank"
-                      href="https://www.instagram.com/bestpicturesinweb/"
-                    >
-                      <i class="lni lni-instagram-filled"> </i>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      target="_blank"
-                      href="https://www.linkedin.com/in/dada-khalandar/"
-                    >
-                      <i class="lni lni-linkedin-original"> </i>
-                    </a>
-                  </li>
-                  <li>
-                    <a target="_blank" href="https://github.com/kerrybli">
-                      <i class="lni lni-github-original"> </i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <!-- footer about -->
+    <footer class="container mx-auto bg-white py-8 border-t border-gray-400">
+        <div class="flex flex-wrap px-6">
+            <div class="w-full lg:w-1/2">
+                <h3 class="font-bold text-gray-900">Alamat</h3>
+                <p class="py-4 text-sm">
+                    Kampus Utama Lantai 2
+                    Jl. Gubernur Sarkawi, Semangat Dalam, Kec. Alalak, Kabupaten Barito Kuala, Kalimantan Selatan 70581<br>
+                    No. Telepon: - <br>
+                    mail: lpm@umbjm.ac.id
+                </p>
             </div>
-            
-        <!-- footer widget -->
-        <div class="footer-copyright">
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="copyright d-sm-flex justify-content-between">
-                <div class="copyright-content text-center text-sm-start">
-                  <p class="text">
-                    Designed and Developed with
-                    <span style="color: red; font-size: 25px">♥️ </span> by
-                    <a
-                      href="https://www.instagram.com/riddd.farid_/profilecard/?igsh=dWY5am1sOTdib252"
-                      target="_blank"
-                      >Muhammad Farid Zikrullah</a
-                    >
-                  </p>
+            <div class="w-full lg:w-1/2 lg:text-right mt-6 md:mt-0">
+                <h3 class="font-bold text-gray-900">Media Sosial</h3>
+                <div class="flex lg:justify-end py-4">
+                    <a href="#" class="mx-2 hover:text-blue-500 text-gray-600">IG</a>
+                    <a href="#" class="mx-2 hover:text-blue-700 text-gray-600">FB</a>
+                    <a href="#" class="mx-2 hover:text-blue-400 text-gray-600">TW</a>
                 </div>
-                <!-- copyright content -->
-              </div>
-              <!-- copyright -->
             </div>
-          </div>
-          <!-- row -->
         </div>
-        <!-- footer copyright -->
-      </div>
-      <!-- container -->
-      <div id="particles-2"></div>
+        <div class="text-center py-6 border-t border-gray-100 mt-8">
+            <p class="text-sm text-gray-500">&copy; 2026 Developed by Muhammad Farid Zikrullah for LPM UM Banjarmasin.</p>
+        </div>
     </footer>
-    <!--====== FOOTER PART ENDS ======-->
 
-    <!--====== BACK TOP TOP PART START ======-->
-    <a href="#" class="back-to-top"> <i class="lni lni-chevron-up"> </i> </a>
-    <!--====== BACK TOP TOP PART ENDS ======-->
+<script>
+    // MOBILE MENU
+    const btn = document.getElementById('menu-btn');
+    const menu = document.getElementById('mobile-menu');
 
-    <!--====== Javascript Files ======-->
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/wow.min.js"></script>
-    <script src="assets/js/glightbox.min.js"></script>
-    <script src="assets/js/count-up.min.js"></script>
-    <script src="assets/js/particles.min.js"></script>
-    <script src="assets/js/main.js"></script>
-  </body>
+    btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+    });
+
+    // ======================
+    // CAROUSEL JS VERSION
+    // ======================
+
+    const slidesContainer = document.getElementById('slides');
+    const totalSlides = slidesContainer.children.length;
+
+    let index = 0;
+    let autoSlide;
+
+    function updateSlide() {
+        slidesContainer.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    function nextSlide() {
+        index = (index + 1) % totalSlides;
+        updateSlide();
+    }
+
+    function prevSlide() {
+        index = (index - 1 + totalSlides) % totalSlides;
+        updateSlide();
+    }
+
+    // AUTO SLIDE
+    function startAuto() {
+        autoSlide = setInterval(nextSlide, 5000);
+    }
+
+    function stopAuto() {
+        clearInterval(autoSlide);
+    }
+
+    startAuto();
+
+    // BUTTON
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        nextSlide();
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+        prevSlide();
+    });
+
+    // HOVER PAUSE
+    const carousel = document.querySelector('.carousel');
+
+    carousel.addEventListener('mouseenter', stopAuto);
+    carousel.addEventListener('mouseleave', startAuto);
+</script>
+
+</body>
+
 </html>
