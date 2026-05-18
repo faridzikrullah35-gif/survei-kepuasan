@@ -12,10 +12,7 @@ class UserManagementController extends Controller
 {
     public function index()
     {
-        $allowedRoles = ['mahasiswa', 'dosen', 'tenaga kependidikan'];
-    
-        // Ambil pengguna berdasarkan role yang ada di tabel users
-        $data = User::whereIn('role', $allowedRoles)->paginate(10); 
+        $data = User::paginate(10);
 
         return view('admin.usermanagement', compact('data'));
     }
