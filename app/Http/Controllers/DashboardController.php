@@ -91,6 +91,9 @@ class DashboardController extends Controller
             case 'mahasiswa':
             case 'dosen':
             case 'tenaga_kependidikan':
+            case 'alumni':
+            case 'dinas':
+            case 'masyarakat':
                 return view('user.dashboard', compact(
                     'totalInstrumen',
                     'totalInstrumenTeks',

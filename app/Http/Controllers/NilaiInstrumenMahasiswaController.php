@@ -104,7 +104,7 @@ class NilaiInstrumenMahasiswaController extends Controller
         // Kode ini sudah benar menggunakan updateOrCreate, tidak perlu diubah
         $user = auth()->user();
 
-        if ($user->role === 'mahasiswa') {
+        if (in_array($user->role, ['mahasiswa', 'alumni'])) {
             $request->validate([
                 'fakultas' => 'required|string|max:255',
                 'prodi' => 'required|string|max:255',
@@ -120,6 +120,12 @@ class NilaiInstrumenMahasiswaController extends Controller
                 'fakultas_unit' => 'required|string|max:255',
             ]);
         }
+        elseif (in_array($user->role, ['dinas', 'masyarakat'])) {
+            $request->validate([
+                'unit' => 'required|string|max:255',
+                'sub_unit' => 'required|string|max:255',
+            ]);
+        }
 
         \App\Models\BiodataResponden::updateOrCreate(
             ['user_id' => $user->id],
@@ -129,7 +135,9 @@ class NilaiInstrumenMahasiswaController extends Controller
                 'prodi' => $request->prodi,
                 'semester' => $request->semester,
                 'homebase' => $request->homebase,
-                'fakultas_unit' => $request->fakultas_unit
+                'fakultas_unit' => $request->fakultas_unit,
+                'unit' => $request->unit,
+                'sub_unit' => $request->sub_unit,
             ]
         );
 

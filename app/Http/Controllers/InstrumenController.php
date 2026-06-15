@@ -147,7 +147,7 @@ class InstrumenController extends Controller
 
         $request->validate([
             'tahun_akademik' => 'required|array|min:1',
-            'role' => 'required|in:admin,mahasiswa,dosen,tenaga_kependidikan,user',
+            'role' => 'required|in:admin,mahasiswa,dosen,tenaga_kependidikan,alumni,dinas,masyarakat',
         ]);
 
         $tahunAkademikId = $request->input('tahun_akademik')[0];

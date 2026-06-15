@@ -15,7 +15,9 @@ class BiodataResponden extends Model
         'prodi',
         'semester',
         'homebase',
-        'fakultas_unit'
+        'fakultas_unit',
+        'unit',
+        'sub_unit'
     ];
 
     public function user()

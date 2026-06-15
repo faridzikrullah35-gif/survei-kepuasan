@@ -154,7 +154,7 @@
             <form id="form-biodata" action="{{ route('biodata.store') }}" method="POST">
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    @if(auth()->user()->role === 'mahasiswa')
+                    @if(in_array(auth()->user()->role, ['mahasiswa', 'alumni']))
                         {{-- Fakultas --}}
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Fakultas</label>
@@ -196,9 +196,26 @@
                     @elseif(auth()->user()->role === 'tenaga_kependidikan')
                         <div class="md:col-span-3">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Fakultas / Unit</label>
-                            <textarea name="fakultas_unit" rows="2" 
+                            <textarea name="fakultas_unit" rows="2"
                                 class="w-full border border-gray-300 rounded-lg px-3 py-2 {{ $isFilled ? 'bg-gray-100' : '' }}"
                                 placeholder="Isi fakultas/unit Anda..." {{ $isFilled ? 'readonly' : 'required' }}>{{ $biodata->fakultas_unit ?? '' }}</textarea>
+                        </div>
+
+                    @elseif(in_array(auth()->user()->role, ['dinas', 'masyarakat']))
+                        {{-- Unit --}}
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Unit</label>
+                            <textarea name="unit" rows="2"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 {{ $isFilled ? 'bg-gray-100' : '' }}"
+                                placeholder="Isi unit..." {{ $isFilled ? 'readonly' : 'required' }}>{{ $biodata->unit ?? '' }}</textarea>
+                        </div>
+
+                        {{-- Sub Unit --}}
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Sub Unit</label>
+                            <textarea name="sub_unit" rows="2"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 {{ $isFilled ? 'bg-gray-100' : '' }}"
+                                placeholder="Isi sub unit..." {{ $isFilled ? 'readonly' : 'required' }}>{{ $biodata->sub_unit ?? '' }}</textarea>
                         </div>
                     @endif
                 </div>

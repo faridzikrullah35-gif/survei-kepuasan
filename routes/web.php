@@ -56,7 +56,7 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::middleware(['auth', 'role:admin'])->get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-Route::middleware(['auth', 'role:user,mahasiswa,dosen,tenaga_kependidikan'])->get('/user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
+Route::middleware(['auth', 'role:user,mahasiswa,dosen,tenaga_kependidikan,stakeholder'])->get('/user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
 
 Route::get('/user/{user}/set-dosen', [UserRoleController::class, 'setRoleToDosen']);
 Route::get('/user/{user}/set-mahasiswa', [UserRoleController::class, 'setRoleToMahasiswa']);
