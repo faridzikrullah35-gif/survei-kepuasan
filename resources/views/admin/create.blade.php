@@ -11,10 +11,9 @@
             <nav class="flex mt-2" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">
                     <li class="inline-flex items-center">
-                        <a href="{{ route('usermanagement') }}" class="text-gray-700 hover:text-indigo-600 inline-flex items-center">
-                            <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 1 1 0 000 2H6a2 2 0 100 4h2a2 2 0 100 4h2a1 1 0 100 2 2 2 0 01-2 2H4a2 2 0 01-2-2V7a2 2 0 012-2z" clip-rule="evenodd"></path></svg>
+                        <div class="text-gray-700 px-3 py-2">
                             Manajemen Pengguna
-                        </a>
+                        </div>
                     </li>
                     <li aria-current="page">
                         <div class="flex items-center">

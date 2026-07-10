@@ -11,18 +11,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('nilai_teks', function (Blueprint $table) {
-            $table->string('nilai_teks')->nullable(false);
+        Schema::table('nilai_instrumen_teks', function (Blueprint $table) {
+            $table->string('nilai_teks');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
-        Schema::table('nilai_teks', function (Blueprint $table) {
-            //
+        Schema::table('nilai_instrumen_teks', function (Blueprint $table) {
+            $table->dropColumn('nilai_teks');
         });
     }
 };

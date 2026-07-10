@@ -265,7 +265,7 @@
             </div>
         </div>
         <div class="text-center py-6 border-t border-gray-100 mt-8">
-            <p class="text-sm text-gray-500">&copy; 2026 Developed by Muhammad Farid Zikrullah for LPM UM Banjarmasin.</p>
+            <p class="text-sm text-gray-500">&copy; {{ date('Y') }} Lembaga Penjaminan Mutu - UMBJM. All Rights Reserved.</p>
         </div>
     </footer>
 
