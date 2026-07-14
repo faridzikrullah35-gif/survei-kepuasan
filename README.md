@@ -1,4 +1,4 @@
-# Sistem Informasi Survei Kepuasan Mahasiswa (SISKA)
+# Sistem Informasi Survei Kepuasan Mahasiswa (SIVEY)
 
 Aplikasi survei kepuasan mahasiswa berbasis web untuk membantu institusi pendidikan mengelola, mendistribusikan, dan menganalisis hasil survei kepuasan secara digital dan real-time.
 
