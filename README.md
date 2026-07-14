@@ -23,10 +23,6 @@ SISKA dibangun untuk menggantikan proses survei kepuasan manual/paper-based menj
 - **Database:** MySQL
 - **Auth:** Laravel Fortify
 
-## Screenshot
-
-*(tambahkan screenshot dashboard/landing page di sini)*
-
 ## Instalasi
 
 ```bash
