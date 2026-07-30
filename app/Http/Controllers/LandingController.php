@@ -32,7 +32,8 @@ class LandingController extends Controller
             ->pluck('role');
 
         // Statistik pengguna (semua user)
-        $roleCounts = User::select('role', DB::raw('COUNT(*) as total'))
+        $roleCounts = User::where('role', '!=', 'admin')
+            ->select('role', DB::raw('COUNT(*) as total'))
             ->groupBy('role')
             ->orderBy('role')
             ->get();

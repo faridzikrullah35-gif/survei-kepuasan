@@ -196,8 +196,14 @@
             </div>
 
             <!-- ========================================================== -->
-            <!-- CHART SECTION – selalu ditampilkan -->
+            <!-- CHART SECTION – hanya tampil jika filter dipilih -->
             <!-- ========================================================== -->
+            @php
+                $showChart = request()->filled('tahun_akademik_id')
+                    || request()->filled('instrumen_id')
+                    || request()->filled('role');
+            @endphp
+            @if($showChart)
             <div class="flex justify-center mb-8">
                 <div class="w-full lg:w-4/5 xl:w-3/4">
                     <div class="card bg-white rounded-xl shadow-lg overflow-hidden">
@@ -207,27 +213,42 @@
                                 Hasil Survei
                             </h2>
                         </div>
+
                         <div class="p-6">
                             <!-- Container chart -->
-                            <div id="chartContainer" class="chart-container" style="position: relative; height: 350px; width: 100%; max-width: 500px; margin: 0 auto;">
+                            <div id="chartContainer"
+                                class="chart-container"
+                                style="position: relative; height: 350px; width: 100%; max-width: 500px; margin: 0 auto;">
                                 <canvas id="nilaiChartLanding"></canvas>
                             </div>
+
                             <!-- Ringkasan nilai -->
                             <div class="grid grid-cols-4 gap-4 mt-6 text-center" id="nilaiSummary">
                                 <div class="p-3 bg-red-100 rounded-lg">
-                                    <span class="block text-2xl font-bold text-red-600">{{ $nilaiCounts->nilai_1 ?? 0 }}</span>
+                                    <span class="block text-2xl font-bold text-red-600">
+                                        {{ $nilaiCounts->nilai_1 ?? 0 }}
+                                    </span>
                                     <span class="text-xs text-gray-600">Nilai 1</span>
                                 </div>
+
                                 <div class="p-3 bg-yellow-100 rounded-lg">
-                                    <span class="block text-2xl font-bold text-yellow-600">{{ $nilaiCounts->nilai_2 ?? 0 }}</span>
+                                    <span class="block text-2xl font-bold text-yellow-600">
+                                        {{ $nilaiCounts->nilai_2 ?? 0 }}
+                                    </span>
                                     <span class="text-xs text-gray-600">Nilai 2</span>
                                 </div>
+
                                 <div class="p-3 bg-green-100 rounded-lg">
-                                    <span class="block text-2xl font-bold text-green-600">{{ $nilaiCounts->nilai_3 ?? 0 }}</span>
+                                    <span class="block text-2xl font-bold text-green-600">
+                                        {{ $nilaiCounts->nilai_3 ?? 0 }}
+                                    </span>
                                     <span class="text-xs text-gray-600">Nilai 3</span>
                                 </div>
+
                                 <div class="p-3 bg-blue-100 rounded-lg">
-                                    <span class="block text-2xl font-bold text-blue-600">{{ $nilaiCounts->nilai_4 ?? 0 }}</span>
+                                    <span class="block text-2xl font-bold text-blue-600">
+                                        {{ $nilaiCounts->nilai_4 ?? 0 }}
+                                    </span>
                                     <span class="text-xs text-gray-600">Nilai 4</span>
                                 </div>
                             </div>
@@ -235,6 +256,7 @@
                     </div>
                 </div>
             </div>
+            @endif
 
             <!-- Statistics Section -->
             <div class="flex justify-center">
