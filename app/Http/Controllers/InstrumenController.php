@@ -53,7 +53,7 @@ class InstrumenController extends Controller
         }
 
         $instrumens = $query
-            ->latest()
+            ->orderBy('id', 'desc')
             ->paginate(20)
             ->withQueryString();
 

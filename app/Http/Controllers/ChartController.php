@@ -166,10 +166,18 @@ class ChartController extends Controller
         | Total User
         |--------------------------------------------------------------------------
         */
+        $roles = DB::table('users')
+            ->select('role')
+            ->whereNotNull('role')
+            ->distinct()
+            ->orderBy('role')
+            ->pluck('role');
 
-        $totalMahasiswa = DB::table('users')->where('role', 'mahasiswa')->count();
-        $totalDosen = DB::table('users')->where('role', 'dosen')->count();
-        $totalTenagaKependidikan = DB::table('users')->where('role', 'tenaga_kependidikan')->count();
+        $roleCounts = DB::table('users')
+            ->select('role', DB::raw('COUNT(*) as total'))
+            ->groupBy('role')
+            ->orderBy('role')
+            ->get();
 
         return view('chart.index', compact(
             'tahunAkademik',
@@ -177,9 +185,8 @@ class ChartController extends Controller
             'nilaiCounts',
             'summaryPerRole',
             'data',
-            'totalMahasiswa',
-            'totalDosen',
-            'totalTenagaKependidikan'
+            'roleCounts',
+            'roles'
         ));
     }
 

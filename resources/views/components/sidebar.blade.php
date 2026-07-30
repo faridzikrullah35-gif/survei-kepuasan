@@ -93,6 +93,29 @@
                     </ul>
                 </li>
             @endif
+
+            <!-- Kelola Slide (Admin) -->
+            @if (auth()->user()->role === 'admin')
+                <li x-data="{ open: {{ request()->is('slides*') ? 'true' : 'false' }} }">
+                    <button @click="open = !open" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-slate-700 {{ request()->is('slides*') ? 'bg-slate-700' : '' }}">
+                        <span class="flex items-center">
+                            <i class="fas fa-images mr-3"></i>
+                            <span>Kelola Slide</span>
+                        </span>
+                        <svg class="w-4 h-4" :class="{'rotate-180': open}" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                    <ul x-show="open" x-transition class="mt-2 space-y-1 pl-8" style="display: none;">
+                        <li>
+                            <a href="{{ route('slides.index') }}" 
+                            class="block py-1 px-2 text-sm rounded hover:bg-slate-600 {{ request()->routeIs('slides.index') ? 'text-white font-semibold' : 'text-gray-300' }}">
+                                Daftar Slide Gambar
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endif
         </ul>
     </nav>
 </aside>

@@ -25,6 +25,8 @@ use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserImportController;
 use App\Http\Controllers\KritikSaranController;
+use App\Http\Controllers\LandingController;
+use App\Http\Controllers\SlideController;
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -47,9 +49,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::redirect('/', '/Survei_Kepuasan');
 
-Route::get('/Survei_Kepuasan', function () {
-    return view('landing');
-});
+Route::get('/Survei_Kepuasan', [LandingController::class, 'index'])->name('landing');
 
 Route::get('/login', function () {
     return view('pages.auth.auth-login');
@@ -103,6 +103,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('tahun_akademik', TahunAkademikController::class);
         Route::resource('nilai', NilaiController::class);
         Route::resource('survei', SurveiController::class);
+        Route::resource('slides', SlideController::class);
     });
 
     Route::get('/instrumen', [InstrumenController::class, 'index'])->middleware('role:admin,user,mahasiswa,dosen,tenaga_kependidikan');

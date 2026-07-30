@@ -184,18 +184,21 @@
                                             <i class="fas fa-users mr-1 text-blue-500"></i>
                                             Pilih Role/Pengguna
                                         </label>
-                                        <select name="role" id="role"
+
+                                        <select
+                                            name="role"
+                                            id="role"
                                             class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
+
                                             <option value="">Semua Role/Pengguna</option>
-                                            <option value="mahasiswa" {{ request('role') == 'mahasiswa' ? 'selected' : '' }}>
-                                                Mahasiswa
-                                            </option>
-                                            <option value="dosen" {{ request('role') == 'dosen' ? 'selected' : '' }}>
-                                                Dosen
-                                            </option>
-                                            <option value="tenaga_kependidikan" {{ request('role') == 'tenaga_kependidikan' ? 'selected' : '' }}>
-                                                Tenaga Kependidikan
-                                            </option>
+
+                                            @foreach($roles as $role)
+                                                <option value="{{ $role }}"
+                                                    {{ request('role') == $role ? 'selected' : '' }}>
+                                                    {{ ucwords(str_replace('_', ' ', $role)) }}
+                                                </option>
+                                            @endforeach
+
                                         </select>
                                     </div>
                                 </div>
@@ -395,21 +398,33 @@
                         </div>
                         <div class="p-6">
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <div class="stat-card rounded-lg p-6 text-center">
-                                    <i class="fas fa-user-graduate text-4xl mb-3"></i>
-                                    <h3 class="text-lg font-semibold mb-1">Mahasiswa</h3>
-                                    <p class="text-3xl font-bold">{{ $totalMahasiswa }}</p>
-                                </div>
-                                <div class="stat-card stat-card-2 rounded-lg p-6 text-center">
-                                    <i class="fas fa-chalkboard-teacher text-4xl mb-3"></i>
-                                    <h3 class="text-lg font-semibold mb-1">Dosen</h3>
-                                    <p class="text-3xl font-bold">{{ $totalDosen }}</p>
-                                </div>
-                                <div class="stat-card stat-card-3 rounded-lg p-6 text-center">
-                                    <i class="fas fa-user-tie text-4xl mb-3"></i>
-                                    <h3 class="text-lg font-semibold mb-1">Tenaga Kependidikan</h3>
-                                    <p class="text-3xl font-bold">{{ $totalTenagaKependidikan }}</p>
-                                </div>
+                                @php
+                                    $icons = [
+                                        'mahasiswa' => 'fas fa-user-graduate',
+                                        'dosen' => 'fas fa-chalkboard-teacher',
+                                        'tenaga_kependidikan' => 'fas fa-user-tie',
+                                        'alumni' => 'fas fa-user-check',
+                                        'dinas' => 'fas fa-building',
+                                        'masyarakat' => 'fas fa-users',
+                                    ];
+                                    $cardClass = [
+                                        '',
+                                        'stat-card-2',
+                                        'stat-card-3',
+                                    ];
+                                @endphp
+
+                                @foreach($roleCounts as $index => $role)
+                                    <div class="stat-card {{ $cardClass[$index % 3] }} rounded-lg p-6 text-center">
+                                        <i class="{{ $icons[$role->role] ?? 'fas fa-user' }} text-4xl mb-3"></i>
+                                        <h3 class="text-lg font-semibold mb-1">
+                                            {{ ucwords(str_replace('_', ' ', $role->role)) }}
+                                        </h3>
+                                        <p class="text-3xl font-bold">
+                                            {{ $role->total }}
+                                        </p>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
