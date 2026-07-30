@@ -26,6 +26,7 @@ class LandingController extends Controller
             ->get();
 
         $roles = User::whereNotNull('role')
+            ->where('role', '!=', 'admin')
             ->distinct()
             ->orderBy('role')
             ->pluck('role');
