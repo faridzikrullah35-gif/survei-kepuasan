@@ -53,7 +53,7 @@ class InstrumenController extends Controller
         }
 
         $instrumens = $query
-            ->orderBy('id', 'desc')
+            ->orderBy('id', 'asc')
             ->paginate(20)
             ->withQueryString();
 
