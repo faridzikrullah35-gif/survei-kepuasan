@@ -113,49 +113,72 @@
         @endif
         
             <div class="card-body">
-                <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate="">
-                    @csrf
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input id="email" type="email"
-                            class="form-control @error('email') is-invalid @enderror"
-                            name="email" tabindex="1" autofocus>
-                        @error('email')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
+    <form method="POST" action="{{ route('login.process') }}" class="needs-validation" novalidate="">
+        @csrf
 
-                    <div class="form-group">
-                        <div class="d-block">
-                            <label for="password" class="control-label">Password</label>
-                            <!-- <div class="float-right">
-                                <a href="#" class="text-small">Forgot Password?</a>
-                            </div> -->
-                        </div>
-                        <div class="input-group">
-                            <input id="password" type="password"
-                                class="form-control @error('password') is-invalid @enderror"
-                                name="password" tabindex="2">
-                            <button type="button" class="btn btn-outline-secondary toggle-password border-0" data-target="#password">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            @error('password')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
+        <div class="form-group">
+            <label for="login">Email / NIK / NPM / NIDN</label>
 
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                            Login
-                        </button>
-                    </div>
-                </form>
+            <input
+                id="login"
+                type="text"
+                class="form-control @error('login') is-invalid @enderror"
+                name="login"
+                value="{{ old('login') }}"
+                tabindex="1"
+                autofocus
+                placeholder="Masukkan Email, NIK, NPM, atau NIDN"
+            >
+
+            @error('login')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="form-group">
+            <div class="d-block">
+                <label for="password" class="control-label">Password</label>
             </div>
+
+            <div class="input-group">
+                <input
+                    id="password"
+                    type="password"
+                    class="form-control @error('password') is-invalid @enderror"
+                    name="password"
+                    tabindex="2"
+                    placeholder="Masukkan password"
+                >
+
+                <button
+                    type="button"
+                    class="btn btn-outline-secondary toggle-password border-0"
+                    data-target="#password"
+                >
+                    <i class="fas fa-eye"></i>
+                </button>
+
+                @error('password')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button
+                type="submit"
+                class="btn btn-primary btn-lg btn-block"
+                tabindex="4"
+            >
+                Login
+            </button>
+        </div>
+    </form>
+</div>
 
             <div class="text-muted mt-1 text-center">
                 <a href="{{ url('/') }}">

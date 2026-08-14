@@ -6,53 +6,105 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\User;
 
 class LoginMahasiswaController extends Controller
 {
-    // Menampilkan halaman login berdasarkan role mahasiswa
+    // Menampilkan halaman login
     public function index()
     {
-        // Jika sudah login, arahkan ke halaman sesuai role
         if (Auth::check()) {
             $role = Auth::user()->role;
-            return view('login', compact('role')); // Gunakan file login-mahasiswa.blade.php
+
+            return view('login', compact('role'));
         }
-        // Jika belum login, tampilkan halaman login
-        return view('login'); // Gunakan file login-mahasiswa.blade.php
+
+        return view('login');
     }
 
+    // Menangani proses login
     public function login(Request $request)
     {
-        // Validasi input form login
-        $validated = $request->validate([
-            'email' => 'required|email',
+        // Validasi input login
+        $request->validate([
+            'login' => 'required|string',
             'password' => 'required|min:6',
+        ], [
+            'login.required' => 'Email, NIK, NPM, atau NIDN wajib diisi.',
+            'password.required' => 'Password wajib diisi.',
+            'password.min' => 'Password minimal 6 karakter.',
         ]);
 
-        // Coba autentikasi pengguna
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            // Jika berhasil login, redirect ke dashboard atau halaman lain
-            return redirect()->route('login');
+        $login = trim($request->login);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Cari user berdasarkan Email / NIK / NPM / NIDN
+        |--------------------------------------------------------------------------
+        */
+
+        $user = User::where(function ($query) use ($login) {
+            $query->where('email', $login)
+                ->orWhere('nik', $login)
+                ->orWhere('npm', $login)
+                ->orWhere('nidn', $login);
+        })->first();
+
+        // User tidak ditemukan
+        if (!$user) {
+            return back()
+                ->withErrors([
+                    'login' => 'Email, NIK, NPM, atau NIDN tidak ditemukan.'
+                ])
+                ->withInput($request->only('login'));
         }
 
-        // Jika login gagal, kembali ke form login dengan pesan error
-        return back()->withErrors(['email' => 'Invalid credentials']);
+        /*
+        |--------------------------------------------------------------------------
+        | Cek password
+        |--------------------------------------------------------------------------
+        */
+
+        if (!Auth::attempt([
+            'id' => $user->id,
+            'password' => $request->password,
+        ], $request->boolean('remember'))) {
+
+            return back()
+                ->withErrors([
+                    'login' => 'Password yang Anda masukkan salah.'
+                ])
+                ->withInput($request->only('login'));
+        }
+
+        // Regenerasi session
+        $request->session()->regenerate();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Redirect ke DashboardController
+        |--------------------------------------------------------------------------
+        |
+        | DashboardController yang menentukan dashboard berdasarkan role.
+        |
+        */
+
+        return redirect()->intended(route('dashboard'));
     }
 
-    // Metode untuk memperbarui role pengguna
+    // Update role pengguna
     public function updateRole(Request $request)
     {
-        // Validasi input
         $request->validate([
             'role' => 'required|in:mahasiswa,dosen,tenaga_kependidikan',
         ]);
 
-        // Update role pengguna yang sedang login
         $user = Auth::user();
+
         $user->role = $request->role;
         $user->save();
 
-        // Redirect kembali ke halaman login dengan pesan sukses
-        return Redirect::route('dashboard')->with('success', 'Role berhasil diperbarui!');
+        return Redirect::route('dashboard')
+            ->with('success', 'Role berhasil diperbarui!');
     }
 }

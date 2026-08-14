@@ -51,9 +51,11 @@ Route::redirect('/', '/Survei_Kepuasan');
 
 Route::get('/Survei_Kepuasan', [LandingController::class, 'index'])->name('landing');
 
-Route::get('/login', function () {
-    return view('pages.auth.auth-login');
-})->name('login');
+Route::get('/login', [LoginController::class, 'showLoginForm'])
+    ->name('login');
+
+Route::post('/login', [LoginController::class, 'login'])
+    ->name('login.process');
 
 Route::middleware(['auth', 'role:admin'])->get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 Route::middleware(['auth', 'role:user,mahasiswa,dosen,tenaga_kependidikan,stakeholder'])->get('/user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
