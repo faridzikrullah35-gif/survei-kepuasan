@@ -19,8 +19,11 @@ class UserImportController extends Controller
             'file' => 'required|mimes:xlsx'
         ]);
 
+        set_time_limit(300); // 5 menit
+
         Excel::import(new UsersImport, $request->file('file'));
 
-        return redirect('/import-users')->with('success', 'Data berhasil diimport.');
+        return redirect('/import-users')
+            ->with('success', 'Data berhasil diimport.');
     }
 }
